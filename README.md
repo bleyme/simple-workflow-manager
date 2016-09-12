@@ -11,6 +11,7 @@ A very simple (data-oriented) jobs workflow manager written in a unique python s
 * ✓ Data backend: anything that SQLAlchemy handle
 * ✓ JSON external configuration file
 * ✓ Templated delta dates (Talend oriented through --context_param)
+* ✓ Allow delegation of job logging to Talend (StatCatcher), stderr is redirected to stdout
 
 ## Configuration
 
@@ -20,6 +21,8 @@ A very simple (data-oriented) jobs workflow manager written in a unique python s
 
 ```sql
 --- MS SQL dialect version in schema monitoring
+--- This is the default Talend StatCatcher table
+
 DROP TABLE IF EXISTS [monitoring].[ETL_jobs_execution_monitoring] ;
 CREATE TABLE [monitoring].[ETL_jobs_execution_monitoring] (
 	[moment] [datetime] NOT NULL,
