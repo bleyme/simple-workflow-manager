@@ -1,3 +1,45 @@
-{
+{  
+   
+   "description":"This file describes the sequence of jobs required for marketing performances metrics integration",
+
+   "retry_number":2,
+   "package_dir":"/opt/repo/jobs/",
+   "if_failed":"skip",
+   "time_out":10,
+
+   "monitoring_db":{
+      "db_type":"mssql+pymssql",
+      "db":"DWH",
+      "server":"DWH",
+      "table":"jobs_execution_monitoring",
+      "port":"1433",
+      "user":"etl",
+      "password":"XXX"
+      },
+
+      "jobs":[  
+
+      {  
+         "name":"Load_DoubleClick_Reports_to_staging",
+         "job_executable":"cd /tmp; python -u /opt/repo/jobs/Load_DoubleClick_Reports_to_staging/Load_DoubleClick_Reports_to_staging.py",
+         "parameters":"--input /opt/repo/jobs/Load_DoubleClick_Reports_to_staging/dwh_reports.json --helper_dir /opt/repo/helpers/DoubleClick/",
+         "if_failed":"failed",
+         "retry_number":5,
+         "active":true,
+         "time_out":340,
+         "monitored_by_workflow":true
+      },
+
+      {  
+         "name":"Load_Fact_Marketing_Performances",
+         "job_executable":"sh /opt/repo/jobs/Load_Fact_Marketing_Performances/Load_Fact_Marketing_Performances/Load_Fact_Marketing_Performances_run.sh",
+         "if_failed":"failed",
+         "retry_number":5,
+         "active":true,
+         "time_out":120,
+         "monitored_by_workflow":false
+      }      
+
+      ]
 
 }
