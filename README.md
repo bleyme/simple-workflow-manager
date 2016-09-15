@@ -95,3 +95,8 @@ CREATE TABLE [monitoring].[ETL_jobs_execution_monitoring] (
 ```
 
 ### Command line options
+
+* *job_file* path of the json workflow definition
+* *delta* period to (re)load in days, months or years e.g. --delta "3 days". Work only if parametrized Talend job (`--context_param Start={{ Start }}` for instance). See code for more information.
+* *job_names* reload only a selection of the jobs (comma separated) of the workflow e.g. `--job_names "Talend_Job_B"`
+* *force* ignore existing day execution
