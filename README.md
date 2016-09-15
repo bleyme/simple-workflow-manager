@@ -47,6 +47,51 @@ CREATE TABLE [monitoring].[ETL_jobs_execution_monitoring] (
 ### Workflow example
 
 ```json
+
+{  
+   
+   "description":"This file describes a sequence of jobs",
+
+   "retry_number":2,
+   "package_dir":"/path_to_job_executable",
+   "if_failed":"skip",
+   "time_out":10,
+
+   "monitoring_db":{
+      "db_type":"mssql+pymssql",
+      "db":"databasename",
+      "server":"database_server",
+      "table":"monitoring_table_name",
+      "port":"database_port",
+      "user":"database_user",
+      "password":"user_password"
+      },
+      
+   "jobs":[  
+   
+      {  
+         "name":"Job_A",
+         "job_executable":"sh /my_path/my_jobA.sh",
+         "if_failed":"failed",
+         "retry_number":5,
+         "active":true,
+         "time_out":120,
+         "monitored_by_workflow":true
+      },
+      
+       {  
+         "name":"Talend_Job_B",
+         "job_executable":"sh /my_path/Talend_Job_B/Talend_Job_B_run.sh",
+         "if_failed":"failed",
+         "retry_number":5,
+         "active":true,
+         "time_out":120,
+         "monitored_by_workflow":false
+      }
+   
+   ]
+      
+}
 ```
 
 ### Command line options
